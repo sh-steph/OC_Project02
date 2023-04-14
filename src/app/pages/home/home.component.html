@@ -5,8 +5,7 @@
         <div class="col-12">
             <div class="title-card">Médails par pays</div>
         </div>
-        <div class="col-6 subtitle-card">Nombre de JO</div>
-        <div class="col-6 subtitle-card">Nombre de Pays</div>
+        <div class="col-6 subtitle-card">Nombre de JO {{ joYears.length }}</div>
+        <div class="col-6 subtitle-card">Nombre de Pays {{ countriesList.length }}</div>
     </div>
 </div>
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
