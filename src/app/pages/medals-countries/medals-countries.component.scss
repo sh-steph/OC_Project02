@@ -1,26 +1,20 @@
-.container {
-    padding: 2em;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .title-card {
-    margin: auto;
-    background: #2cb5a0;
-    width: 13rem;
-    padding: 1em;
-    border-radius: 10px;
-    text-align: center;
-    color: #fff;  
-  }
-  
-  .subtitle-card {
-    margin: 2em auto 2em;
-    width: 13rem;
-    padding: 1em;
-    border-style: solid;
-    border-radius: 10px;
-    border-color: #2cb5a0;
-    text-align: center;
-    color: #000000; 
-  }
+.title-card {
+  margin: auto;
+  background: #2cb5a0;
+  width: 13rem;
+  padding: 1em;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+.subtitle-card {
+  margin: 2em auto 2em;
+  width: 13rem;
+  padding: 1em;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: #2cb5a0;
+  text-align: center;
+  color: #000000;
+}

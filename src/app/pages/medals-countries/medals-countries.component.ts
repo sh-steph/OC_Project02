@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
-import { Participation } from 'src/app/core/models/Participation';
-import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-medals-countries',
@@ -21,18 +19,18 @@ export class MedalsCountriesComponent implements OnInit {
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     this.olympics$
-    .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe((olympicsData) => {
-      // wait to get data from subscribe
-      if (olympicsData) {
-        this.getCountries(olympicsData);
-        this.ngUnsubscribe.next();
-        this.ngUnsubscribe.complete();
-      }
-    });
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((olympicsData) => {
+        // wait to get data from subscribe
+        if (olympicsData) {
+          this.getCountries(olympicsData);
+          this.ngUnsubscribe.next();
+          this.ngUnsubscribe.complete();
+        }
+      });
   }
 
-  getCountries(olympics: any) {
+  getCountries(olympics: Olympic[]) {
     olympics.forEach((countries: Olympic) => {
       this.countriesList.push(<Olympic>{
         id: countries.id,
@@ -52,7 +50,6 @@ export class MedalsCountriesComponent implements OnInit {
       ) {
         this.joYears.push(this.countriesList[0].participations[index].year);
       }
-      console.log(this.joYears);
     }
   }
 }
