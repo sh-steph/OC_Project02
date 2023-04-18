@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { DetailComponent } from './pages/detail/detail.component';
+import { DetailComponent } from './pages/medals-countries/pie-chart/detail/detail.component';
 import { MedalsCountriesComponent } from './pages/medals-countries/medals-countries.component';
 import { PieChartComponent } from './pages/medals-countries/pie-chart/pie-chart.component';
 
