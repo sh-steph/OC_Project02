@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of, Subject, takeUntil } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, of, Subject, Subscription, takeUntil } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 
@@ -8,9 +8,10 @@ import { Olympic } from 'src/app/core/models/Olympic';
   templateUrl: './medals-countries.component.html',
   styleUrls: ['./medals-countries.component.scss'],
 })
-export class MedalsCountriesComponent implements OnInit {
+export class MedalsCountriesComponent implements OnInit, OnDestroy {
   public olympics$: Observable<Olympic[] | null> = of(null);
   private ngUnsubscribe = new Subject<void>();
+  olympicsSubscription: Subscription | undefined
   countriesList: Olympic[] = [];
   joYears: number[] = [];
 
@@ -28,6 +29,14 @@ export class MedalsCountriesComponent implements OnInit {
           this.ngUnsubscribe.complete();
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+    if (this.olympicsSubscription) {
+      this.olympicsSubscription.unsubscribe();
+    }
   }
 
   getCountries(olympics: Olympic[]) {

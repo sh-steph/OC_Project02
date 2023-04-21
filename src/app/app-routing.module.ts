@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DetailComponent } from './pages/medals-countries/pie-chart/detail/detail.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
+import { CountryGuard } from './core/helpers/countryGuard';
 const routes: Routes = [
   {
     path: '',
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     path: ':id/detail',
     component: DetailComponent,
+    canActivate: [CountryGuard],
   },
   {
     path: '**', // wildcard

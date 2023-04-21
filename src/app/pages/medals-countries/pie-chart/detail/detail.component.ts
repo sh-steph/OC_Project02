@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable, Subject, of, takeUntil } from 'rxjs';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Observable, Subject, Subscription, of, takeUntil } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,9 +12,10 @@ import { BaseChartDirective } from 'ng2-charts';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
   public olympics$: Observable<Olympic[] | null> = of(null);
   private ngUnsubscribe = new Subject<void>();
+  olympicsSubscription: Subscription | undefined;
   countryFromUrl: string = '';
   numberOfEntries: number = 0;
   totalNumberMedals: number = 0;
@@ -58,6 +59,14 @@ export class DetailComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+    if (this.olympicsSubscription) {
+      this.olympicsSubscription.unsubscribe();
+    }
+  }
+
   getOlympicData() {
     this.olympics$ = this.olympicService.getOlympics();
     this.olympics$
@@ -75,10 +84,10 @@ export class DetailComponent implements OnInit {
           this.getyearsList(countryObject);
           this.getmedalsList(countryObject);
           this.updateChartData();
-          this.ngUnsubscribe.next();
-          this.ngUnsubscribe.complete();
         }
       });
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   getCountryObject(olympics: Olympic[]) {
