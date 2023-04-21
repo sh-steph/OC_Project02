@@ -24,11 +24,11 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getOlympicData();
     const getCountryFromUrl = this.activatedRoute.snapshot.paramMap.get('id');
     // get line chart with url only
     if (getCountryFromUrl) {
       this.countryFromUrl = getCountryFromUrl;
+      this.getOlympicData();
     }
   }
 
@@ -46,7 +46,6 @@ export class DetailComponent implements OnInit {
             : 0;
           this.totalNumberMedals = this.getTotalMedals(countryObject);
           this.totalNumberOfAthletes = this.getTotalOfAthletes(countryObject);
-
           this.ngUnsubscribe.next();
           this.ngUnsubscribe.complete();
         }
