@@ -1,1 +1,19 @@
-<p>detail works!</p>
+<h2>Country stat</h2>
+<hr />
+<button (click)="backButton()"> Back </button>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="title-card">{{ countryFromUrl }}</div>
+    </div>
+    <div class="col-4 subtitle-card">
+      Number of entries {{ numberOfEntries }}
+    </div>
+    <div class="col-4 subtitle-card">
+      Total number medals {{ totalNumberMedals }}
+    </div>
+    <div class="col-4 subtitle-card">
+      Total number of athletes {{ totalNumberOfAthletes }}
+    </div>
+  </div>
+</div>

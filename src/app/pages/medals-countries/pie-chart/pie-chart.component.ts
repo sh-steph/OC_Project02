@@ -1,34 +1,25 @@
-import {
-  Component,
-  Input,
-  NgModule,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-// ChartJs
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Router } from '@angular/router';
+import { DataFromChartClick } from 'src/app/core/models/DataFromChartClick';
 
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
 })
-
 export class PieChartComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   @Input() countriesListFromParent: Olympic[] = [];
-  countryList: string[] = [];
+  countriesList: string[] = [];
   totalMedalList: number[] = [];
+  indexPie: number = 0;
 
   // Pie
   public pieChartOptions: ChartConfiguration['options'] = {
-    onClick: (evt, array) => {
-      this.getPieIndex(array[0].index);
-    },
     responsive: true,
     plugins: {
       legend: {
@@ -46,10 +37,13 @@ export class PieChartComponent implements OnInit {
         },
       },
     },
+    onClick: (evt, array) => {
+      this.getPieIndex(array[0].index);
+    },
   };
   //Data
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: this.countryList,
+    labels: this.countriesList,
     datasets: [
       {
         data: this.totalMedalList,
@@ -67,11 +61,10 @@ export class PieChartComponent implements OnInit {
       this.countriesListFromParent.length > 0
     ) {
       this.countriesListFromParent.map((c) => {
-        this.countryList.push(c.country),
+        this.countriesList.push(c.country),
           this.totalMedalList.push(this.getTotalMedalsByCountry(c.country));
       });
     }
-    console.log('countries ', this.countryList);
   }
 
   getTotalMedalsByCountry(country: string): number {
@@ -88,9 +81,16 @@ export class PieChartComponent implements OnInit {
   }
 
   getPieIndex(indexPie: number) {
-    if(this.countryList) {
-      console.log(this.countryList[indexPie])
-      this.router.navigate(['/detail']);
+    this.indexPie = indexPie;
+  }
+
+  chartHovered(e: DataFromChartClick): void {
+    if (e.event.type == 'click') {
+      const clickedIndex = e.active[0]?.index;
+      if (this.countriesList && clickedIndex !== undefined) {
+        const country = this.countriesList[clickedIndex];
+        this.router.navigate([country, 'detail']);
+      }
     }
   }
 }

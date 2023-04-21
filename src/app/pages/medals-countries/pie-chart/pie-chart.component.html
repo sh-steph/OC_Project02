@@ -9,6 +9,7 @@
         [options]="pieChartOptions"
         [plugins]="pieChartPlugins"
         style="width: 100%; height: 30vh"
+        (chartHover)="chartHovered($event)"
       >
       </canvas>
     </div>
