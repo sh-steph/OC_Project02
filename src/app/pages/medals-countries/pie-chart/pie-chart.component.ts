@@ -47,9 +47,46 @@ export class PieChartComponent implements OnInit {
     datasets: [
       {
         data: this.totalMedalList,
+        backgroundColor: [
+          '#946166',
+          '#6FC8CE',
+          '#B9CCE6',
+          '#C0E0F0',
+          '#9781A0',
+          '#8AA2D9',
+          '783E52',
+        ],
+        hoverBackgroundColor: [
+          '#946166',
+          '#6FC8CE',
+          '#B9CCE6',
+          '#C0E0F0',
+          '#9781A0',
+          '#8AA2D9',
+          '783E52',
+        ],
+        borderColor: [
+          '#946166',
+          '#6FC8CE',
+          '#B9CCE6',
+          '#C0E0F0',
+          '#9781A0',
+          '#8AA2D9',
+          '783E52',
+        ],
+        hoverBorderColor: [
+          '#946166',
+          '#6FC8CE',
+          '#B9CCE6',
+          '#C0E0F0',
+          '#9781A0',
+          '#8AA2D9',
+          '783E52',
+        ],
       },
     ],
   };
+
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [DatalabelsPlugin];
 
